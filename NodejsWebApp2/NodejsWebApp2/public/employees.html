@@ -1,0 +1,523 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemical Laboratory</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="bg-gray-100">
+        <div class="container mx-auto py-2 px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <!-- Social Media Icons -->
+                <a href="https://twitter.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a href="https://facebook.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a href="https://linkedin.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                    <i class="fa fa-linkedin"></i>
+                </a>
+                <!-- Add more social media icons as needed -->
+            </div>
+            <div>
+                <!-- Contact Information -->
+                <span class="text-gray-600 mr-4"><i class="fa fa-envelope"></i> email@example.com</span>
+                <span class="text-gray-600"><i class="fa fa-phone"></i> +123 456 7890</span>
+            </div>
+        </div>
+    </div>
+    <header class="bg-white shadow-lg sticky top-0 z-10">
+        <div class="container mx-auto flex items-center justify-between py-4 px-4">
+            <div class="flex items-center">
+                <h1 class="text-2xl font-bold text-gray-800">
+                    <a href="/indexadmin.html" title="Chemical Laboratory">Chemical Laboratory</a>
+                </h1>
+                <span id="admin-text" class="ml-2 text-xl font-bold text-gray-800">Admin</span>
+            </div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-4">
+                    <li><a href="employees.html">Employees</a></li>
+                    <li><a href="/report.html">Reports</a></li>
+                </ul>
+            </nav> <div class="md:hidden"> <button class="focus:outline-none"> <svg class="h-6 w-6 text-gray-800" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"> <path d="M4 6h16M4 12h16M4 18h16"></path> </svg> </button> </div>
+        </div>
+    </header>
+    <section>
+        <h2 class="text-2xl font-bold text-center mb-6">Our Expert Team</h2>
+        <div class="grid" id="employee-list">
+            <!-- Team Member 1 -->
+            <div class="team-member" data-id="1">
+                <div class="image-container mx-auto">
+                    <img src="https://medixcollege.ca/wp-content/uploads/2019/04/122-mlta-assistant.jpg" alt="Jane Doe">
+                </div>
+                <h3 class="font-semibold">Jane Doe</h3>
+                <p>Lead Research Scientist</p>
+                <p>Specializing in Behavioral Pharmacology</p>
+                <p>Email: jane@example.com</p>
+                <p>Phone: +1 (123) 456-7890</p>
+                <button class="delete-button">Delete</button>
+            </div>
+
+            <!-- Team Member 2 -->
+            <div class="team-member" data-id="2">
+                <div class="image-container mx-auto">
+                    <img src="https://previews.123rf.com/images/auremar/auremar1110/auremar111002326/11065042-male-lab-technician.jpg" alt="John Doe">
+                </div>
+                <h3 class="font-semibold">John Doe</h3>
+                <p>Lead Research Scientist</p>
+                <p>Specializing in Chemical Reactions</p>
+                <p>Email: john@example.com</p>
+                <p>Phone: +1 (234) 567-8901</p>
+                <button class="delete-button">Delete</button>
+            </div>
+
+            <!-- Team Member 3 -->
+            <div class="team-member" data-id="3">
+                <div class="image-container mx-auto">
+                    <img src="https://st.depositphotos.com/1011643/2870/i/950/depositphotos_28706611-stock-photo-female-lab-technician-in-laboratory.jpg" alt="Anna Doe">
+                </div>
+                <h3 class="font-semibold">Anna Doe</h3>
+                <p>Lead Research Scientist</p>
+                <p>Specializing in Analytical Techniques</p>
+                <p>Email: anna@example.com</p>
+                <p>Phone: +1 (345) 678-9012</p>
+                <button class="delete-button">Delete</button>
+            </div>
+        </div>
+        <div>
+            <div class="add-employee-container">
+                <div class="add-employee-container">
+                    <h3>Add New Employee</h3>
+                    <form id="add-employee-form">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="position">Position:</label>
+                            <input type="text" id="position" name="position" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="specialization">Specialization:</label>
+                            <input type="text" id="specialization" name="specialization" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone:</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="photo">Photo:</label>
+                            <input type="file" id="photo" name="photo" required>
+                        </div>
+
+                        <button type="submit" class="submit-button">Add Employee</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        // JavaScript for adding, editing, and deleting employees
+        document.addEventListener('DOMContentLoaded', function () {
+            const employeeList = document.getElementById('employee-list');
+            const addEmployeeForm = document.getElementById('add-employee-form');
+            const form = document.getElementById('add-employee-form');
+            fetchUpdatedEmployeeList();
+
+
+            // Add event listener for adding a new employee
+            addEmployeeForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const name = document.getElementById('name').value;
+                const position = document.getElementById('position').value;
+                const specialization = document.getElementById('specialization').value;
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('phone').value;
+                const photoInput = document.getElementById('photo');
+                let photoUrl = 'https://via.placeholder.com/100'; // Default placeholder
+                if (photoInput.files && photoInput.files[0]) {
+                    const file = photoInput.files[0];
+                    photoUrl = URL.createObjectURL(file);
+                }
+
+                if (photoInput.files && photoInput.files[0]) {
+                    const file = photoInput.files[0];
+                    photoUrl = URL.createObjectURL(file);
+                }
+                const formData = {
+                    name: document.getElementById('name').value,
+                    position: document.getElementById('position').value,
+                    specialization: document.getElementById('specialization').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    photoUrl: photoUrl,
+                };
+
+                // Create a new employee element
+                const newEmployee = document.createElement('div');
+                newEmployee.classList.add('team-member');
+
+                // Generate a unique data-id for the new employee (use any method to ensure uniqueness)
+                const dataId = Math.floor(Math.random() * 1000);
+
+                newEmployee.setAttribute('data-id', dataId);
+                newEmployee.innerHTML = `
+                                <div class="image-container mx-auto">
+                                    <img src="${photoUrl}" alt="${name}">
+                                </div>
+                                <h3 class="font-semibold">${name}</h3>
+                                <p>${position}</p>
+                                <p>Specializing in ${specialization}</p>
+                                <p>Email: ${email}</p>
+                                <p>Phone: ${phone}</p>
+                                <button class="delete-button">Delete</button>
+                            `;
+
+                // Add the new employee to the list
+                fetch('/api/addEmployee', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Success:', data);
+                        if (data.success) {
+                            fetchUpdatedEmployeeList(); // Fetch and update the employee list
+                        } else {
+                            console.error('Error adding employee:', data.message);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+
+                form.reset(); // Reset the form after submission
+                addEmployeeForm.reset(); // Clear the form fields
+            });
+            function fetchUpdatedEmployeeList() {
+                fetch('/api/getEmployees')
+                    .then(response => response.json())
+                    .then(employees => {
+                        employeeList.innerHTML = ''; // Clear current list
+                        employees.forEach(employee => {
+                            addEmployeeToPage(employee); // Add each employee to the list
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching employees:', error);
+                    });
+            }
+
+            function addEmployeeToPage(employee) {
+                const newEmployee = document.createElement('div');
+                newEmployee.classList.add('team-member');
+                let imagePath = employee.ImagePath;
+
+                // Use a placeholder image if imagePath is not provided
+                if (!imagePath) {
+                    imagePath = 'https://via.placeholder.com/100';
+                }
+                newEmployee.innerHTML = `
+            <div class="image-container mx-auto">
+                <img src="${employee.ImagePath}"  alt="${employee.name}">
+            </div>
+            <h3 class="font-semibold">${employee.Name}</h3>
+            <p>${employee.Position}</p>
+            <p>Specializing in ${employee.Specialization}</p>
+            <p>Email: ${employee.Email}</p>
+            <p>Phone: ${employee.Phone}</p>
+            <button class="delete-button">Delete</button>
+        `;
+                employeeList.appendChild(newEmployee);
+            }
+            // Add event listener for editing and deleting employees
+            employeeList.addEventListener('click', function (e) {
+                if (e.target.classList.contains('edit-button')) {
+                    // Edit button clicked
+                    const employee = e.target.closest('.team-member');
+                    const dataId = employee.getAttribute('data-id');
+
+                    // Implement your edit logic here
+                    alert(`Edit employee with data-id ${dataId}`);
+                } else if (e.target.classList.contains('delete-button')) {
+                    // Delete button clicked
+                    const employee = e.target.closest('.team-member');
+                    const dataId = employee.getAttribute('data-id');
+
+                    // Remove the employee from the list
+                    employee.remove();
+
+                    // Implement your delete logic here
+                    alert(`Delete employee with data-id ${dataId}`);
+                }
+            });
+        });
+    </script>
+
+
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto py-8 pl-20 lg:pl-24 px-4">
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Quick Links Section -->
+                <div>
+                    <h5 class="text-xl mb-4 font-semibold border-b border-gray-500">Quick Links</h5>
+                    <ul class="list-none mb-0">
+                        <li><a href="employees.html" class="hover:text-gray-400">Employees</a></li>
+                        <li><a href="report.html" class="hover:text-gray-400">Reports</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social Media Icons Section -->
+                <div>
+                    <h5 class="text-xl mb-4 font-semibold border-b border-gray-500">Follow Us</h5>
+                    <div class="flex items-center space-x-4">
+                        <!-- Social Media Icons -->
+                        <a href="https://twitter.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="https://facebook.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a href="https://linkedin.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                        <!-- Add more social media icons as needed -->
+                    </div>
+                </div>
+
+                <!-- Contact Information Section -->
+                <div>
+                    <h5 class="text-xl mb-4 font-semibold border-b border-gray-500">Contact Us</h5>
+                    <p><i class="fa fa-envelope"></i> email@example.com</p>
+                    <p><i class="fa fa-phone"></i> +123 456 7890</p>
+                </div>
+            </div>
+
+            <!-- Additional Footer Bar -->
+            <div class="border-t border-gray-700 mt-8 pt-4">
+                <p class="text-center text-sm">? 2024 Chemical Laboratory - All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+
+
+
+
+        .site-header {
+            background: #f8f8f8;
+            padding: 10px;
+            text-align: left; /* Aligns content to the left */
+        }
+
+        body {
+            background-image: url('https://img.myloview.com/stickers/paper-cut-test-tube-and-flask-chemical-laboratory-test-icon-isolated-on-white-background-laboratory-glassware-sign-paper-art-style-vector-700-240890485.jpg'); /* Replace with your image path */
+            background-size: cover; /* Cover the entire page */
+            background-position: center; /* Center the image */
+            background-attachment: fixed; /* Fixed background */
+            background-repeat: no-repeat; /* Prevent repeating the image */
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        /* Add a background to content areas to enhance readability */
+        .content-area {
+            background-color: rgba(255, 255, 255, 0.8); /* White background with some opacity */
+            padding: 20px;
+            border-radius: 8px;
+        }
+        /* Style for the form container */
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.5); /* White background with 50% opacity */
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+            border-radius: 8px; /* Optional rounded corners */
+            padding: 20px; /* Padding around the form */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
+        }
+
+            /* Style for the form elements */
+            .form-container input,
+            .form-container textarea,
+            .form-container button {
+                background-color: rgba(255, 255, 255, 0.8); /* Slightly more opaque for readability */
+                border-radius: 4px; /* Rounded corners for form elements */
+            }
+
+            /* Adjust the label color for better visibility */
+            .form-container label {
+                color: #333; /* Darker color for better contrast */
+            }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .team-member {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+        }
+
+            .team-member img {
+                width: 100px; /* Adjust the width as needed */
+                height: 100px; /* Adjust the height as needed */
+                border-radius: 50%;
+                margin-bottom: 10px;
+            }
+
+            .team-member h3 {
+                font-size: 18px;
+                margin: 0;
+            }
+
+            .team-member p {
+                font-size: 14px;
+                color: #777777;
+            }
+
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .team-member {
+                width: calc(50% - 20px); /* Two team members per row on smaller screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .team-member {
+                width: 100%; /* One team member per row on mobile screens */
+            }
+        }
+
+        .add-employee-form {
+            text-align: center;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+            .add-employee-form label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
+
+            .add-employee-form input[type="text"],
+            .add-employee-form input[type="email"],
+            .add-employee-form input[type="tel"] {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 15px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+            }
+
+            .add-employee-form button[type="submit"] {
+                background-color: #007BFF;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+                .add-employee-form button[type="submit"]:hover {
+                    background-color: #0056b3;
+                }
+
+        .edit-mode input[type="text"],
+        .edit-mode input[type="email"],
+        .edit-mode input[type="tel"] {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            pointer-events: auto;
+        }
+
+        .add-employee-container {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+            .add-employee-container h3 {
+                text-align: center;
+                color: #333;
+                margin-bottom: 20px;
+            }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                color: #333;
+            }
+
+            .form-group input[type="text"],
+            .form-group input[type="email"],
+            .form-group input[type="tel"] {
+                width: 100%;
+                padding: 10px;
+                border-radius: 4px;
+                border: 1px solid #ddd;
+                font-size: 16px;
+            }
+
+        .submit-button {
+            width: 100%;
+            padding: 10px 20px;
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+            .submit-button:hover {
+                background-color: #003d82;
+            }
+    </style>
+</body>
+</html>
