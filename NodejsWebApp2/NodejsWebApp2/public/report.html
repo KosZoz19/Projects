@@ -1,0 +1,455 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemical Laboratory</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="bg-gray-100">
+        <div class="container mx-auto py-2 px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <!-- Social Media Icons -->
+                <a href="https://twitter.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a href="https://facebook.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a href="https://linkedin.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                    <i class="fa fa-linkedin"></i>
+                </a>
+                <!-- Add more social media icons as needed -->
+            </div>
+            <div>
+                <!-- Contact Information -->
+                <span class="text-gray-600 mr-4"><i class="fa fa-envelope"></i> email@example.com</span>
+                <span class="text-gray-600"><i class="fa fa-phone"></i> +123 456 7890</span>
+            </div>
+        </div>
+    </div>
+    <header class="bg-white shadow-lg sticky top-0 z-10">
+        <div class="container mx-auto flex items-center justify-between py-4 px-4">
+            <div class="flex items-center">
+                <h1 class="text-2xl font-bold text-gray-800">
+                    <a href="/indexadmin.html" title="Chemical Laboratory">Chemical Laboratory</a>
+                </h1>
+                <span id="admin-text" class="ml-2 text-xl font-bold text-gray-800">Admin</span>
+            </div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-4">
+                    <li><a href="/employees.html">Employees</a></li>
+                    <li><a href="/report.html">Reports</a></li>
+                </ul>
+            </nav> <div class="md:hidden"> <button class="focus:outline-none"> <svg class="h-6 w-6 text-gray-800" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"> <path d="M4 6h16M4 12h16M4 18h16"></path> </svg> </button> </div>
+        </div>
+    </header>
+    <section class="report-section p-6">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Daily Chemical Report</h2>
+            <form id="daily-report-form">
+                <!-- Date Field -->
+                <div class="form-container mb-4">
+                    <label for="report-date" class="block text-gray-700 text-sm font-bold mb-2">Date:</label>
+                    <input type="date" id="report-date" name="report-date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+
+                <!-- Report Type Dropdown -->
+                <div class="form-container mb-4">
+                    <label for="report-type" class="block text-gray-700 text-sm font-bold mb-2">Report Type:</label>
+                    <select id="report-type" name="report-type" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onchange="toggleReportFields()">
+                        <option value="general">General Chemical Report</option>
+                        <option value="alcohol">Alcohol Laboratory Report</option>
+                        <option value="monthly">Monthly Report</option>
+                    </select>
+                </div>
+                <!-- Hidden fields for Monthly Report -->
+                <div id="monthly-fields" class="hidden">
+                    <!-- Add your text fields here -->
+                    <div class="form-container mb-4">
+                        <label for="monthly-field-1" class="block text-gray-700 text-sm font-bold mb-2">Field 1:</label>
+                        <input type="text" id="monthly-field-1" name="monthly-field-1" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Monthly Field 1">
+                    </div>
+                    <div class="form-container mb-4">
+                        <label for="monthly-field-2" class="block text-gray-700 text-sm font-bold mb-2">Field 2:</label>
+                        <input type="text" id="monthly-field-2" name="monthly-field-2" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Monthly Field 2">
+                    </div>
+                    <!-- Add more fields as needed -->
+                </div>
+                <!-- General Report Field -->
+                <div id="general-fields">
+                    <div class="form-container mb-4">
+                        <label for="report-content" class="block text-gray-700 text-sm font-bold mb-2">Report:</label>
+                        <textarea id="report-content" name="report-content" rows="6" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Write your report here..."></textarea>
+                    </div>
+                </div>
+                <div id="alcohol-fields" class="hidden">
+                    <!-- Sample Size -->
+                    <div class="form-container mb-4">
+                        <label for="sample-size" class="block text-gray-700 text-sm font-bold mb-2">Sample Size:</label>
+                        <input type="number" id="sample-size" name="sample-size" class="input-field" placeholder="Enter sample size">
+                    </div>
+
+                    <!-- Testing Frequency -->
+                    <div class="form-container mb-4">
+                        <label for="testing-frequency" class="block text-gray-700 text-sm font-bold mb-2">Testing Frequency:</label>
+                        <input type="number" id="testing-frequency" name="testing-frequency" class="input-field" placeholder="Enter number of tests per day">
+                    </div>
+
+                    <!-- Test Results -->
+                    <div class="form-container mb-4">
+                        <label for="test-results" class="block text-gray-700 text-sm font-bold mb-2">Test Results:</label>
+                        <input type="text" id="test-results" name="test-results" class="input-field" placeholder="Enter test results">
+                    </div>
+
+                    <!-- Calibration Points -->
+                    <div class="form-container mb-4">
+                        <label for="calibration-points" class="block text-gray-700 text-sm font-bold mb-2">Calibration Points:</label>
+                        <input type="number" id="calibration-points" name="calibration-points" class="input-field" placeholder="Enter number of calibration points">
+                    </div>
+
+                    <!-- Dilutions or Preparations -->
+                    <div class="form-container mb-4">
+                        <label for="dilutions-preparations" class="block text-gray-700 text-sm font-bold mb-2">Dilutions or Preparations:</label>
+                        <input type="number" id="dilutions-preparations" name="dilutions-preparations" class="input-field" placeholder="Enter number of dilutions or preparations">
+                    </div>
+
+                    <!-- Instrument Readings -->
+                    <div class="form-container mb-4">
+                        <label for="instrument-readings" class="block text-gray-700 text-sm font-bold mb-2">Instrument Readings:</label>
+                        <input type="number" id="instrument-readings" name="instrument-readings" class="input-field" placeholder="Enter number of readings">
+                    </div>
+
+                    <!-- Replicate Measurements -->
+                    <div class="form-container mb-4">
+                        <label for="replicate-measurements" class="block text-gray-700 text-sm font-bold mb-2">Replicate Measurements:</label>
+                        <input type="number" id="replicate-measurements" name="replicate-measurements" class="input-field" placeholder="Enter number of replicates">
+                    </div>
+
+                    <!-- Corrective Actions Taken -->
+                    <div class="form-container mb-4">
+                        <label for="corrective-actions" class="block text-gray-700 text-sm font-bold mb-2">Corrective Actions Taken:</label>
+                        <input type="number" id="corrective-actions" name="corrective-actions" class="input-field" placeholder="Enter number of actions taken">
+                    </div>
+
+                    <!-- Verification Checks -->
+                    <div class="form-container mb-4">
+                        <label for="verification-checks" class="block text-gray-700 text-sm font-bold mb-2">Verification Checks:</label>
+                        <input type="number" id="verification-checks" name="verification-checks" class="input-field" placeholder="Enter number of checks">
+                    </div>
+                </div>
+                <button type="submit" class="submit-button">Submit Report</button>
+                <button id="retrieveDataButton" type="button">Retrieve Data</button>
+
+            </form>
+        </div>
+    </section>
+    <script>
+        function toggleReportFields() {
+            var reportType = document.getElementById('report-type').value;
+            var generalFields = document.getElementById('general-fields');
+            var alcoholFields = document.getElementById('alcohol-fields');
+            var monthlyFields = document.getElementById('monthly-fields'); // Add this line
+
+            generalFields.style.display = reportType === 'general' ? 'block' : 'none';
+            alcoholFields.style.display = reportType === 'alcohol' ? 'block' : 'none';
+            monthlyFields.style.display = reportType === 'monthly' ? 'block' : 'none'; // Add this line
+        }
+
+        document.getElementById('daily-report-form').addEventListener('submit', function (event) {
+            var reportType = document.getElementById('report-type').value;
+            var reportContent = document.getElementById('report-content').value;
+            var isValid = true;
+
+            // Validate general report
+            if (reportType === 'general' && !reportContent.trim()) {
+                alert('Please write something in the general report.');
+                isValid = false;
+            }
+
+ 
+           
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+        function submitAlcoholReport() {
+            const formData = {
+                date: document.getElementById('report-date').value,
+                sampleSize: document.getElementById('sample-size').value,
+                testingFrequency: document.getElementById('testing-frequency').value,
+                testResults: document.getElementById('test-results').value,
+                calibrationPoints: document.getElementById('calibration-points').value,
+                dilutionsPreparations: document.getElementById('dilutions-preparations').value,
+                instrumentReadings: document.getElementById('instrument-readings').value,
+                replicateMeasurements: document.getElementById('replicate-measurements').value,
+                correctiveActions: document.getElementById('corrective-actions').value,
+                verificationChecks: document.getElementById('verification-checks').value
+            };
+
+            fetch('/api/addAlcoholReport', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log('Alcohol report added successfully');
+                        // Handle successful submission (e.g., clear form, show success message)
+                    } else {
+                        console.error('Error submitting alcohol report:', data.message);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+
+        document.getElementById('daily-report-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            submitAlcoholReport();
+        });
+        const retrieveDataButton = document.getElementById('retrieveDataButton');
+
+        // Add event listener to the button
+        retrieveDataButton.addEventListener('click', function () {
+            // Make a fetch request to retrieve the data
+            fetch('/execute-query')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to retrieve data');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Manipulate the retrieved data as needed
+                    console.log('Retrieved data:', data);
+
+                    // Update the form fields with the retrieved data
+                    updateFormFields(data);
+                })
+                .catch(error => {
+                    console.error('Error retrieving data:', error);
+                });
+        });
+
+        // Function to update form fields with retrieved data
+        function updateFormFields(data) {
+            // Example: Update the value of a text field with the retrieved data
+            document.getElementById('monthly-field-1').value = data.TotalSampleSize;
+            // Update other fields as needed
+        }
+    </script>
+
+
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto py-8 pl-20 lg:pl-24 px-4">
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Quick Links Section -->
+                <div>
+                    <h5 class="text-xl mb-4 font-semibold border-b border-gray-500">Quick Links</h5>
+                    <ul class="list-none mb-0">
+                        <li><a href="employees.html" class="hover:text-gray-400">Employees</a></li>
+                        <li><a href="report.html" class="hover:text-gray-400">Reports</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social Media Icons Section -->
+                <div>
+                    <h5 class="text-xl mb-4 font-semibold border-b border-gray-500">Follow Us</h5>
+                    <div class="flex items-center space-x-4">
+                        <!-- Social Media Icons -->
+                        <a href="https://twitter.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="https://facebook.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a href="https://linkedin.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                        <!-- Add more social media icons as needed -->
+                    </div>
+                </div>
+
+                <!-- Contact Information Section -->
+                <div>
+                    <h5 class="text-xl mb-4 font-semibold border-b border-gray-500">Contact Us</h5>
+                    <p><i class="fa fa-envelope"></i> email@example.com</p>
+                    <p><i class="fa fa-phone"></i> +123 456 7890</p>
+                </div>
+            </div>
+
+            <!-- Additional Footer Bar -->
+            <div class="border-t border-gray-700 mt-8 pt-4">
+                <p class="text-center text-sm">? 2024 Chemical Laboratory - All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .site-header {
+            background: #f8f8f8;
+            padding: 10px;
+            text-align: left; /* Aligns content to the left */
+        }
+
+        body {
+            background-image: url('https://img.myloview.com/stickers/paper-cut-test-tube-and-flask-chemical-laboratory-test-icon-isolated-on-white-background-laboratory-glassware-sign-paper-art-style-vector-700-240890485.jpg'); /* Replace with your image path */
+            background-size: cover; /* Cover the entire page */
+            background-position: center; /* Center the image */
+            background-attachment: fixed; /* Fixed background */
+            background-repeat: no-repeat; /* Prevent repeating the image */
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        /* Add a background to content areas to enhance readability */
+        .content-area {
+            background-color: rgba(255, 255, 255, 0.8); /* White background with some opacity */
+            padding: 20px;
+            border-radius: 8px;
+        }
+        /* Style for the form container */
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.5); /* White background with 50% opacity */
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+            border-radius: 8px; /* Optional rounded corners */
+            padding: 20px; /* Padding around the form */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
+        }
+
+            /* Style for the form elements */
+            .form-container input,
+            .form-container textarea,
+            .form-container button {
+                background-color: rgba(255, 255, 255, 0.8); /* Slightly more opaque for readability */
+                border-radius: 4px; /* Rounded corners for form elements */
+            }
+
+            /* Adjust the label color for better visibility */
+            .form-container label {
+                color: #333; /* Darker color for better contrast */
+            }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .team-member {
+                width: calc(50% - 20px); /* Two team members per row on smaller screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .team-member {
+                width: 100%; /* One team member per row on mobile screens */
+            }
+        }
+
+        .report-section {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .form-container input,
+        .form-container textarea {
+            border: 1px solid #ddd;
+            padding: 10px;
+            font-size: 16px;
+            color: #444;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        button[type="submit"] {
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .report-section {
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .form-container {
+            margin-bottom: 15px;
+        }
+
+            .form-container label {
+                display: block;
+                color: #333;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
+
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .submit-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            .submit-button:hover {
+                background-color: #0056b3;
+            }
+        #retrieveDataButton {
+            /* Button background color */
+            background-color: #4CAF50;
+            /* Button text color */
+            color: white;
+            /* Button padding */
+            padding: 10px 20px;
+            /* Button border */
+            border: none;
+            /* Add a hover effect */
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+            /* Hover effect */
+            #retrieveDataButton:hover {
+                background-color: #45a049;
+            }
+    </style>
+</body>
+</html>

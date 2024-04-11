@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemical Laboratory</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="bg-gray-100">
+        <div class="container mx-auto py-2 px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <!-- Social Media Icons -->
+                <a href="https://twitter.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a href="https://facebook.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a href="https://linkedin.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                    <i class="fa fa-linkedin"></i>
+                </a>
+                <!-- Add more social media icons as needed -->
+            </div>
+            <div>
+                <!-- Contact Information -->
+                <span class="text-gray-600 mr-4"><i class="fa fa-envelope"></i> email@example.com</span>
+                <span class="text-gray-600"><i class="fa fa-phone"></i> +123 456 7890</span>
+            </div>
+        </div>
+    </div>
+    <header class="bg-white shadow-lg sticky top-0 z-10">
+        <div class="container mx-auto flex items-center justify-between py-4 px-4">
+            <div class="flex items-center">
+                <h1 class="text-2xl font-bold text-gray-800">
+                    <a href="index.html" title="Chemical Laboratory">Chemical Laboratory</a>
+                </h1>
+            </div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-4">
+                    <li>
+                        <a href="aboutus.html" class="hover:text-gray-900">About Us</a>
+
+                    </li>
+                    <li>
+                        <a href="research.html" class="hover:underline">Research</a>
+                    </li>
+                    <li>
+                        <a href="publications.html" class="hover:underline">Publications</a>
+                    </li>
+                    <li>
+                        <a href="index.html" class="hover:underline">Contact</a>
+                    </li>
+                </ul>
+            </nav> <div class="md:hidden"> <button class="focus:outline-none"> <svg class="h-6 w-6 text-gray-800" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"> <path d="M4 6h16M4 12h16M4 18h16"></path> </svg> </button> </div>
+        </div>
+    </header>
+    <section id="research">
+        <!-- Research Section Content -->
+    </section>
+    <section id="publications">
+        <!-- Publications Section Content -->
+    </section>
+    <section id="contact">
+        <!-- Contact Section Content -->
+    </section>
+    <main class="container mx-auto my-8 px-4">
+        <h1 class="text-3xl font-bold text-center my-4">About Us</h1>
+        <section data-aos="fade-up">
+            <h2 class="text-2xl font-bold">Our Mission and Vision</h2>
+            <p>
+                Established in [Year], our Chemical Laboratory has grown into a forefront leader in chemical research. Our mission is to advance the boundaries of science, particularly in the field of chemistry, and to apply this knowledge for the betterment of society. Our vision is to be recognized globally for our contributions to science and industry, particularly in innovative alcohol-based solutions.
+            </p>
+        </section>
+        <section>
+            <h2 class="text-2xl font-bold">Key Projects and Collaborations</h2>
+            <p>
+                Our research spans various groundbreaking projects, including [Project Name], which focuses on [brief project details]. We collaborate with renowned institutions and industry leaders like [Institution/Company Names], bringing together expertise and resources for more impactful results.
+            </p>
+        </section>
+        <section>
+            <h2 class="text-2xl font-bold">Achievements and Recognition</h2>
+            <p>
+                Over the years, our work has been recognized through numerous awards and honors, including [List Awards]. These accolades reflect our commitment to excellence in research and innovation.
+            </p>
+        </section>
+        <!-- Additional sections -->
+        <section>
+                <h2 class="text-2xl font-bold text-center mb-6">Our Expert Team</h2>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <!-- Example Team Member -->
+                    <div class="team-member text-center">
+                        <div class="image-container mx-auto">
+                            <img src="https://medixcollege.ca/wp-content/uploads/2019/04/122-mlta-assistant.jpg" alt="Jane Doe" class="rounded-full">
+                        </div>
+                        <h3 class="font-semibold">Jane Doe</h3>
+                        <p>Lead Research Scientist</p>
+                        <p>Specializing in Behavioral Pharmacology</p>
+                    </div>
+                    <!-- Repeat for other team members -->
+                    <div class="team-member text-center">
+                        <div class="image-container mx-auto">
+                            <img src="https://previews.123rf.com/images/auremar/auremar1110/auremar111002326/11065042-male-lab-technician.jpg" alt="Name" class="rounded-full">
+                        </div>
+                        <h3 class="font-semibold">John Doe</h3>
+                        <p>Lead Research Scientist</p>
+                        <p>Specializing in Chemical Reactions</p>
+                    </div>
+                    <div class="team-member text-center">
+                        <div class="image-container mx-auto">
+                            <img src="https://st.depositphotos.com/1011643/2870/i/950/depositphotos_28706611-stock-photo-female-lab-technician-in-laboratory.jpg" alt="Name" class="rounded-full">
+                        </div>
+                        <h3 class="font-semibold">Anna Doe</h3>
+                        <p>Lead Research Scientist</p>
+                        <p>Specializing in Analytical Techniques</p>
+                    </div>
+                </div>
+             
+        </section>
+        <section>
+            <h2 class="text-2xl font-bold">Achievements and Recognition</h2>
+            <p>
+                Over the years, our work has been recognized through numerous awards and honors, including [List Awards]. These accolades reflect our commitment to excellence in research and innovation.
+            </p>
+        </section>
+        <section>
+
+            <p>
+                Discover more about our cutting-edge research and stay updated on our latest discoveries by following us on [Social Media Links].
+            </p>
+        </section>
+
+    </main>
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto py-8 pl-20 lg:pl-24 px-4">
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Quick Links Section -->
+                <div>
+                    <h5 class="text-xl mb-4 font-semibold border-b border-gray-500">Quick Links</h5>
+                    <ul class="list-none mb-0">
+                        <li><a href="aboutus.html" class="hover:text-gray-400">About Us</a></li>
+                        <li><a href="research.html" class="hover:text-gray-400">Research</a></li>
+                        <li><a href="publications.html" class="hover:text-gray-400">Publications</a></li>
+                        <li><a href="index.html" class="hover:text-gray-400">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social Media Icons Section -->
+                <div>
+                    <h5 class="text-xl mb-4 font-semibold border-b border-gray-500">Follow Us</h5>
+                    <div class="flex items-center space-x-4">
+                        <!-- Social Media Icons -->
+                        <a href="https://twitter.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="https://facebook.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a href="https://linkedin.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                        <!-- Add more social media icons as needed -->
+                    </div>
+                </div>
+
+                <!-- Contact Information Section -->
+                <div>
+                    <h5 class="text-xl mb-4 font-semibold border-b border-gray-500">Contact Us</h5>
+                    <p><i class="fa fa-envelope"></i> email@example.com</p>
+                    <p><i class="fa fa-phone"></i> +123 456 7890</p>
+                </div>
+            </div>
+
+            <!-- Additional Footer Bar -->
+            <div class="border-t border-gray-700 mt-8 pt-4">
+                <p class="text-center text-sm">? 2024 Chemical Laboratory - All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <style>
+
+        .team-member .image-container {
+            width: 150px; /* Fixed width */
+            height: 150px; /* Fixed height */
+            overflow: hidden;
+            border-radius: 50%; /* For rounded images */
+            margin-bottom: 1rem;
+        }
+
+        .team-member img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the image covers the area */
+            object-position: center; /* Aligns the image properly */
+        }
+    </style>
+</body>
+</html>

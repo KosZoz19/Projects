@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemical Laboratory</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="bg-gray-100">
+        <div class="container mx-auto py-2 px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <!-- Social Media Icons -->
+                <a href="https://twitter.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a href="https://facebook.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a href="https://linkedin.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                    <i class="fa fa-linkedin"></i>
+                </a>
+                <!-- Add more social media icons as needed -->
+            </div>
+
+            <div>
+                <!-- Contact Information -->
+                <span class="text-gray-600 mr-4"><i class="fa fa-envelope"></i> email@example.com</span>
+                <span class="text-gray-600"><i class="fa fa-phone"></i> +123 456 7890</span>
+            </div>
+        </div>
+    </div>
+    <div id="event-modal" class="event-modal hidden">
+        <div class="event-modal-content">
+            <span class="event-modal-close">&times;</span>
+            <h3 id="event-modal-title" class="event-modal-title"></h3>
+            <p id="event-modal-description" class="event-modal-description"></p>
+        </div>
+    </div>
+    <header class="bg-white shadow-lg sticky top-0 z-10">
+        <div class="container mx-auto flex items-center justify-between py-4 px-4">
+            <div class="flex items-center">
+                <h1 class="text-2xl font-bold text-gray-800">
+                    <a href="/indexadmin.html" title="Chemical Laboratory">Chemical Laboratory</a>
+                </h1>
+                <span id="admin-text" class="ml-2 text-xl font-bold text-gray-800">Admin</span>
+            </div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-4">
+                    <li><a href="/employees.html">Employees</a></li>
+                    <li><a href="/report.html">Reports</a></li>
+                </ul>
+            </nav> <div class="md:hidden"> <button class="focus:outline-none"> <svg class="h-6 w-6 text-gray-800" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"> <path d="M4 6h16M4 12h16M4 18h16"></path> </svg> </button> </div>
+        </div>
+        <div class="login-button-container">
+            <!-- Log Out Button -->
+            <button onclick="logout()">Log Out</button>
+        </div>
+    </header>
+    <section id="about">
+        <div id="editable-content" class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center content-area" contenteditable="true">
+
+            <div class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+                <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Welcome to Our Chemical Laboratory</h1>
+                <p class="mb-8 leading-relaxed">
+                    At the heart of scientific innovation, our Chemical Laboratory is a beacon of discovery and ingenuity. Founded in [Year], we have become a pivotal player in the field of chemical research, contributing significantly to both academia and industry. Our state-of-the-art facilities and talented team of scientists and researchers collaborate on groundbreaking projects, unraveling the mysteries of chemical compounds and their limitless potential. Join us as we explore the uncharted territories of chemistry, aiming to make impactful advancements for a sustainable future.
+                </p>
+                <div class="flex justify-center">
+                    <a href="#contact" class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Get In Touch</a>
+                </div>
+            </div>
+            <!-- Optionally, add an image or graphic representation of the lab -->
+        </div>
+    </section>
+
+    <div id="calendar-app" class="calendar-app">
+        <div class="calendar-header">
+            <button id="prev-month" class="calendar-nav">&lt;</button>
+            <span id="current-month-year" class="calendar-month-year"></span>
+            <button id="next-month" class="calendar-nav">&gt;</button>
+        </div>
+        <div class="calendar-body">
+            <div class="calendar-grid">
+                <!-- Calendar grid will be generated by JavaScript -->
+            </div>
+        </div>
+    </div>
+    <section id="events">
+        <div class="container mx-auto my-8 px-4 content-area">
+            <h2 class="text-3xl font-bold text-center">Upcoming Events in February</h2>
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Event 1 -->
+                <div id="" class="event bg-white shadow-lg rounded-lg p-4">
+                    <h3 class="text-xl font-semibold mb-2">Chemical Research Conference</h3>
+                    <p class="text-sm mb-1"><strong>Date:</strong> February 10th</p>
+                    <p class="text-sm mb-3"><strong>Location:</strong> Main Auditorium</p>
+                    <a href="#" class="text-indigo-600 hover:text-indigo-800">Learn more</a>
+                </div>
+
+                <!-- Event 2 -->
+                <div class="event bg-white shadow-lg rounded-lg p-4">
+                    <h3 class="text-xl font-semibold mb-2">Innovations in Organic Chemistry</h3>
+                    <p class="text-sm mb-1"><strong>Date:</strong> February 17th</p>
+                    <p class="text-sm mb-3"><strong>Location:</strong> Conference Hall B</p>
+                    <a href="#" class="text-indigo-600 hover:text-indigo-800">Learn more</a>
+                </div>
+
+                <!-- Event 3 -->
+                <div class="event bg-white shadow-lg rounded-lg p-4">
+                    <h3 class="text-xl font-semibold mb-2">Chemical Safety Workshop</h3>
+                    <p class="text-sm mb-1"><strong>Date:</strong> February 24th</p>
+                    <p class="text-sm mb-3"><strong>Location:</strong> Lab 3</p>
+                    <a href="#" class="text-indigo-600 hover:text-indigo-800">Learn more</a>
+                </div>
+                <!-- More events can be added similarly -->
+            </div>
+        </div>
+    </section>
+    <section id="research">
+        <!-- Research Section Content -->
+    </section>
+    <section id="publications">
+        <!-- Publications Section Content -->
+    </section>
+    <section id="contact">
+        <!-- Contact Section Content -->
+    </section>
+
+    <section id="contact">
+        <div class="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
+            <div class="text-center lg:w-2/3 w-full">
+                <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Contact Us</h1>
+                <p class="mb-8 leading-relaxed">Send us your queries and we will get back to you as soon as possible.</p>
+            </div>
+            <div class="lg:w-1/2 md:w-2/3 bg-white flex flex-col w-full md:py-8 mt-8 md:mt-0">
+                <form action="http://localhost:1337/sendemail" method="POST" enctype="multipart/form-data" class="flex flex-wrap -m-2">
+                    <div class="p-2 w-1/2">
+                        <div class="relative">
+                            <label for="name" class="leading-7 text-sm text-gray-600">Name</label>
+                            <input type="text" id="name" name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                        </div>
+                    </div>
+                    <div class="p-2 w-1/2">
+                        <div class="relative">
+                            <label for="email" class="leading-7 text-sm text-gray-600">Email</label>
+                            <input type="email" id="email" name="email" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                        </div>
+                    </div>
+                    <div class="p-2 w-full">
+                        <div class="relative">
+                            <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
+                            <textarea id="message" name="message" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+                        </div>
+                    </div>
+                    <div class="p-2 w-full flex justify-between items-center">
+                        <div class="relative flex items-center">
+                            <input type="file" id="file" name="file" class="hidden" multiple>
+                            <label for="file" class="cursor-pointer text-white bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg">Attach File</label>
+                            <span id="file-chosen" class="ml-3 text-sm">File not chosen</span>
+                        </div>
+                        <button type="submit" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Send</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <div id="map-container" class="max-w-3xl mx-auto my-8 p-2 bg-white rounded-lg shadow-md">
+            <div id="map" class="h-64"></div> <!-- Adjust height as needed -->
+        </div>
+
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.getElementById('file').addEventListener('change', function () {//File sending
+            var fileName = this.files[0] ? this.files[0].name : "File not chosen";
+            document.getElementById('file-chosen').textContent = fileName;
+        });
+    </script>
+    <script>
+        // Login modal,When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            var modal = document.getElementById('loginModal');
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+    <script>
+        function logout() {
+            // Add your logout logic here
+            // For example, you can clear session data or perform any other necessary actions.
+
+            // Replace the current page with the desired URL
+            window.location.href = '/index.html';
+        }
+    </script>
+    <script>
+        var map = L.map('map', {
+            center: [51.505, -0.09],
+            zoom: 13,
+            scrollWheelZoom: false // Disables zooming with the scroll wheel
+        });
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'OpenStreetMap contributors'
+        }).addTo(map);
+
+        var marker = L.marker([51.505, -0.09]).addTo(map);
+        marker.bindPopup("<b>Our company location!</b><br>Our number:+12345678.").openPopup();
+    </script>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            axios.post('/api/login', { username, password })
+                .then(response => {
+
+                    alert('Login successful');
+                    // Handle successful login
+                    document.getElementById('original-nav').style.display = 'none';
+                    document.getElementById('admin-nav').style.display = 'block';
+
+                })
+                .catch(error => {
+                    alert('Login failed');
+                    // Handle failed login
+                });
+        });
+    </script>
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto py-8 pl-20 lg:pl-24 px-4">
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Quick Links Section -->
+                <div>
+                    <h5 class="text-xl mb-4 font-semibold border-b border-gray-500">Quick Links</h5>
+                    <ul class="list-none mb-0">
+                        <li><a href="employees.html" class="hover:text-gray-400">Employees</a></li>
+                        <li><a href="report.html" class="hover:text-gray-400">Reports</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social Media Icons Section -->
+                <div>
+                    <h5 class="text-xl mb-4 font-semibold border-b border-gray-500">Follow Us</h5>
+                    <div class="flex items-center space-x-4">
+                        <!-- Social Media Icons -->
+                        <a href="https://twitter.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="https://facebook.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a href="https://linkedin.com/" target="_blank" class="text-gray-600 hover:text-gray-800">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                        <!-- Add more social media icons as needed -->
+                    </div>
+                </div>
+
+                <!-- Contact Information Section -->
+                <div>
+                    <h5 class="text-xl mb-4 font-semibold border-b border-gray-500">Contact Us</h5>
+                    <p><i class="fa fa-envelope"></i> email@example.com</p>
+                    <p><i class="fa fa-phone"></i> +123 456 7890</p>
+                </div>
+            </div>
+
+            <!-- Additional Footer Bar -->
+            <div class="border-t border-gray-700 mt-8 pt-4">
+                <p class="text-center text-sm">? 2024 Chemical Laboratory - All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        #map-container {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        #map {
+            height: 400px; /* Adjust the height as needed */
+            width: 100%;
+        }
+
+
+
+        .site-header {
+            background: #f8f8f8;
+            padding: 10px;
+            text-align: left; /* Aligns content to the left */
+        }
+
+        .login-button-container {
+            display: inline-block; /* Keeps the login elements inline */
+        }
+
+        .login-button-container {
+            position: absolute; /* Position it relative to the browser window */
+            top: 0; /* Align to the top of the window */
+            right: 0; /* Align to the right of the window */
+            margin: 15px; /* Add some margin */
+        }
+
+            .login-button-container button {
+                padding: 5px 10px;
+                border-radius: 5px;
+                border: 1px solid #ddd;
+                background-color: #4CAF50;
+                color: white;
+                cursor: pointer;
+            }
+
+                .login-button-container button:hover {
+                    background-color: #45a049;
+                }
+
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+        }
+
+        body {
+            background-image: url('https://img.myloview.com/stickers/paper-cut-test-tube-and-flask-chemical-laboratory-test-icon-isolated-on-white-background-laboratory-glassware-sign-paper-art-style-vector-700-240890485.jpg'); /* Replace with your image path */
+            background-size: cover; /* Cover the entire page */
+            background-position: center; /* Center the image */
+            background-attachment: fixed; /* Fixed background */
+            background-repeat: no-repeat; /* Prevent repeating the image */
+        }
+        /* Add a background to content areas to enhance readability */
+        .content-area {
+            background-color: rgba(255, 255, 255, 0.8); /* White background with some opacity */
+            padding: 20px;
+            border-radius: 8px;
+        }
+        /* Style for the form container */
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.5); /* White background with 50% opacity */
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+            border-radius: 8px; /* Optional rounded corners */
+            padding: 20px; /* Padding around the form */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
+        }
+
+            /* Style for the form elements */
+            .form-container input,
+            .form-container textarea,
+            .form-container button {
+                background-color: rgba(255, 255, 255, 0.8); /* Slightly more opaque for readability */
+                border-radius: 4px; /* Rounded corners for form elements */
+            }
+
+            /* Adjust the label color for better visibility */
+            .form-container label {
+                color: #333; /* Darker color for better contrast */
+            }
+
+        .calendar-app {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .calendar-header {
+            background-color: #4CAF50;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            align-items: center;
+        }
+
+        .calendar-nav {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .calendar-month-year {
+            font-weight: bold;
+        }
+
+        .calendar-body {
+            padding: 20px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            gap: 5px;
+        }
+
+            .calendar-grid div {
+                padding: 10px;
+                background-color: #f0f0f0;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+            }
+
+                .calendar-grid div.event-day {
+                    background-color: #e0ebeb;
+                    font-weight: bold;
+                }
+
+        .event-modal {
+            display: none;
+            position: fixed;
+            z-index: 2;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .event-modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            border-radius: 10px;
+        }
+
+        .event-modal-close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .event-modal-close:hover,
+            .event-modal-close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+        .event-modal-title {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .event-modal-description {
+            margin-top: 15px;
+            font-size: 16px;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            let currentMonth = new Date().getMonth();
+            let currentYear = new Date().getFullYear();
+
+            const events = [
+                { date: '2024-02-10', title: 'Chemical Research Conference', description: 'Location: Main Auditorium. A comprehensive conference on chemical research.' },
+                { date: '2024-02-14', title: 'Valentine\'s Day', description: 'A special day to celebrate love and affection.' },
+                { date: '2024-02-17', title: 'Innovations in Organic Chemistry', description: 'Location: Conference Hall B. Explore the latest in organic chemistry.' },
+                { date: '2024-02-20', title: 'Family Day', description: 'A day to celebrate and spend time with family.' },
+                { date: '2024-02-24', title: 'Chemical Safety Workshop', description: 'Location: Lab 3. Learn about safety practices in chemical labs.' }
+            ];
+
+            const calendarGrid = document.querySelector('.calendar-grid');
+            const currentMonthYear = document.getElementById('current-month-year');
+
+            function createCalendar(month, year) {
+                calendarGrid.innerHTML = '';
+                currentMonthYear.textContent = `${monthNames[month]} ${year}`;
+
+                let firstDay = new Date(year, month, 1).getDay();
+                let daysInMonth = 32 - new Date(year, month, 32).getDate();
+
+                for (let i = 0; i < firstDay; i++) {
+                    calendarGrid.innerHTML += `<div class="calendar-day"></div>`; // Empty cells
+                }
+
+                for (let day = 1; day <= daysInMonth; day++) {
+                    let fullDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                    let event = events.find(event => event.date === fullDate);
+                    let dayClass = event ? 'event-day' : '';
+                    calendarGrid.innerHTML += `<div class="calendar-day ${dayClass}" data-date="${fullDate}">${day}</div>`;
+                }
+                function showModal(title, description) {
+                    document.getElementById('event-modal-title').textContent = title;
+                    document.getElementById('event-modal-description').textContent = description;
+                    document.getElementById('event-modal').style.display = 'block';
+                }
+
+                document.querySelector('.event-modal-close').addEventListener('click', () => {
+                    document.getElementById('event-modal').style.display = 'none';
+                });
+                document.querySelectorAll('.event-day').forEach(day => {
+                    day.addEventListener('click', function () {
+                        let selectedDate = this.dataset.date;
+                        let event = events.find(event => event.date === selectedDate);
+                        if (event) {
+                            showModal(event.title, event.description);
+                        }
+                    });
+                });
+            }
+
+            document.getElementById('prev-month').addEventListener('click', () => {
+                currentMonth--;
+                if (currentMonth < 0) {
+                    currentMonth = 11;
+                    currentYear--;
+                }
+                createCalendar(currentMonth, currentYear);
+            });
+
+            document.getElementById('next-month').addEventListener('click', () => {
+                currentMonth++;
+                if (currentMonth > 11) {
+                    currentMonth = 0;
+                    currentYear++;
+                }
+                createCalendar(currentMonth, currentYear);
+            });
+
+            createCalendar(currentMonth, currentYear);
+        });
+    </script>
+</body>
+</html>
